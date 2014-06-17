@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\Users\Luis Mierez\AndroidStudioProjects\RSS\RSS Sounds Simple\build\intermediates\pre-dexed\debug\classes-e9614411f8b2a6e890ccdd98e3c41135b0d7faa8.jar"
+        jar="C:\Users\Luis Mierez\AndroidStudioProjects\RSS\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
+        dex="C:\Users\Luis Mierez\AndroidStudioProjects\RSS\RSS Sounds Simple\build\intermediates\pre-dexed\debug\support-v4-19.1.0-4a250860a9f5e4d6af66972741e3d8903e88369e.jar"
+        jar="C:\Users\Luis Mierez\AppData\Local\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+
+</pre-dex-items>
