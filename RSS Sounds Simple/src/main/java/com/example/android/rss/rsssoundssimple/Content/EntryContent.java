@@ -87,7 +87,7 @@ public class EntryContent implements Parcelable {
                     InputStream in = new URL(urlImage).openStream();
                     image = BitmapFactory.decodeStream(in);
                 } catch (Exception e) {
-                    Log.e("Error", "here");
+                    Log.d("Error 53", "here");
                     e.printStackTrace();
                 }
                 return image;
@@ -98,7 +98,7 @@ public class EntryContent implements Parcelable {
                     InputStream in = new URL(urlImage).openStream();
                     image = BitmapFactory.decodeStream(in);
                 } catch (Exception e) {
-                    Log.e("Error", e.getMessage());
+                    Log.d("Error 75", e.getMessage());
                     e.printStackTrace();
                 }
                 return image;
@@ -109,7 +109,7 @@ public class EntryContent implements Parcelable {
                     InputStream in = new URL(urlImage).openStream();
                     image = BitmapFactory.decodeStream(in);
                 } catch (Exception e) {
-                    Log.e("Error", e.getMessage());
+                    Log.d("Error 100", e.getMessage());
                     e.printStackTrace();
                 }
                 return image;
