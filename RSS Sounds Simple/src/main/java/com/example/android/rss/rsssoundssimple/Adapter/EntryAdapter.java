@@ -32,6 +32,10 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
         this.values = values;
     }
 
+    private class ViewHolder() {
+
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,7 +46,8 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
         ImageView image = (ImageView) rowView.findViewById(R.id.appImage);
 
         name.setText(values.get(position).getName()); // Set the name of the app
-        price.setText(values.get(position).getPrice("amount")); // Set the price of the app
+        Log.d("APP Price", String.valueOf(values.get(position).getPrice("amount")==null));
+        price.setText(values.get(position).getPrice("amount") + " " + values.get(position).getPrice("currency")); // Set the price of the app
 
         image.setImageBitmap(values.get(position).getImage(53)); // Set the image of the app
 

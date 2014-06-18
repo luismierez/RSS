@@ -1,7 +1,6 @@
 package com.example.android.rss.rsssoundssimple.Content;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -10,11 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Luis Mierez on 6/11/2014.
  */
@@ -22,9 +16,6 @@ public class EntryContent implements Parcelable {
 
 
     private String name;
-    private String image_53;
-    private String image_75;
-    private String image_100;
     private String summary;
     private String price_label;
     private String price_amount;
@@ -38,6 +29,9 @@ public class EntryContent implements Parcelable {
     private String artist;
     private String category;
     private String releaseDate;
+    private Bitmap image_small;
+    private Bitmap image_medium;
+    private Bitmap image_large;
 
 
     public EntryContent(JSONObject object) {
@@ -45,9 +39,6 @@ public class EntryContent implements Parcelable {
             name = object.getJSONObject("im:name").getString("label");
 
             JSONArray _image = object.getJSONArray("im:image");
-            image_53 = _image.getJSONObject(0).getString("label");
-            image_75 = _image.getJSONObject(1).getString("label");
-            image_100 = _image.getJSONObject(2).getString("label");
 
             summary = object.getJSONObject("summary").getString("label");
 
@@ -72,47 +63,30 @@ public class EntryContent implements Parcelable {
         }
     }
 
+    public void setSmallImage(Bitmap in) {
+        image_small = in;
+    }
+
+    public void setMediumImage(Bitmap in) {
+        image_medium = in;
+    }
+
+    public void setLargeImage(Bitmap in) {
+        image_large = in;
+    }
+
     public String getName() {
         return name;
     }
 
     public Bitmap getImage(int height) {
-        String urlImage = null;
-        Bitmap image = null;
-        switch (height) {
+        switch(height) {
             case 53:
-                urlImage = image_53;
-                image = null;
-                try {
-                    InputStream in = new URL(urlImage).openStream();
-                    image = BitmapFactory.decodeStream(in);
-                } catch (Exception e) {
-                    Log.d("Error 53", "here");
-                    e.printStackTrace();
-                }
-                return image;
+                return image_small;
             case 75:
-                urlImage = image_75;
-                image = null;
-                try {
-                    InputStream in = new URL(urlImage).openStream();
-                    image = BitmapFactory.decodeStream(in);
-                } catch (Exception e) {
-                    Log.d("Error 75", e.getMessage());
-                    e.printStackTrace();
-                }
-                return image;
+                return image_medium;
             case 100:
-                urlImage = image_100;
-                image = null;
-                try {
-                    InputStream in = new URL(urlImage).openStream();
-                    image = BitmapFactory.decodeStream(in);
-                } catch (Exception e) {
-                    Log.d("Error 100", e.getMessage());
-                    e.printStackTrace();
-                }
-                return image;
+                return image_large;
             default:
                 return null;
         }
@@ -123,11 +97,11 @@ public class EntryContent implements Parcelable {
     }
 
     public String getPrice(String what) {
-        if (what.equals(price_label)) {
+        if (what.equals("label")) {
             return price_label;
-        } else if (what.equals(price_amount)) {
+        } else if (what.equals("amount")) {
             return price_amount;
-        } else if (what.equals(price_currency)) {
+        } else if (what.equals("currency")) {
             return price_currency;
         } else
             return null;
@@ -169,9 +143,9 @@ public class EntryContent implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         //parcel.writeList(image);
-        parcel.writeString(image_53);
-        parcel.writeString(image_75);
-        parcel.writeString(image_100);
+        image_small.writeToParcel(parcel, i);
+        image_medium.writeToParcel(parcel, i);
+        image_large.writeToParcel(parcel, i);
         parcel.writeString(summary);
         parcel.writeString(price_label);
         parcel.writeString(price_amount);
@@ -187,10 +161,11 @@ public class EntryContent implements Parcelable {
         //Log.d("EntryContent", "0");
         name = source.readString();
         //Log.d("EntryContent", "1");
-        //source.readStringList(image);
-        image_53 = source.readString();
-        image_75 = source.readString();
-        image_100 = source.readString();
+        //source.readStringList(image)
+        image_small = Bitmap.CREATOR.createFromParcel(source);
+        image_medium = Bitmap.CREATOR.createFromParcel(source);
+        image_large = Bitmap.CREATOR.createFromParcel(source);
+
         //Log.d("EntryContent", "2");
         summary = source.readString();
         //Log.d("EntryContent", "3");
@@ -225,6 +200,5 @@ public class EntryContent implements Parcelable {
             return new EntryContent[i];
         }
     };
-
 
 }

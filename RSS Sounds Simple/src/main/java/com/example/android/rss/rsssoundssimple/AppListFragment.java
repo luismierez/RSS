@@ -1,5 +1,7 @@
 package com.example.android.rss.rsssoundssimple;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -21,6 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +70,11 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
     private class GetRss extends AsyncTask<String, Integer, String> {
 
         @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
         protected String doInBackground(String... strings) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -78,7 +87,42 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
                 AuthorContent author = new AuthorContent(feed.getJSONObject("author"));
                 JSONArray entries = feed.getJSONArray("entry");
                 for(int i = 0; i < entries.length(); i++) {
+                    // Retrieve JSON Object and create an entry with it
                     EntryContent entry = new EntryContent(entries.getJSONObject(i));
+
+                    // Image is a special case
+                    JSONArray images = entries.getJSONObject(i).getJSONArray("im:image");
+                    String urlImage = images.getJSONObject(0).getString("label");
+                    Bitmap image = null;
+                    try {
+                        InputStream in = new URL(urlImage).openStream();
+                        image = BitmapFactory.decodeStream(in);
+                    } catch (Exception e) {
+                        Log.d("Error", e.getMessage());
+                    }
+                    entry.setSmallImage(image);
+/*
+                    urlImage = images.getJSONObject(1).getString("label");
+                    image = null;
+                    try {
+                        InputStream in = new URL(urlImage).openStream();
+                        image = BitmapFactory.decodeStream(in);
+                    } catch (Exception e) {
+                        Log.d("Error", e.getMessage());
+                    }
+                    entry.setMediumImage(image);
+
+                    urlImage = images.getJSONObject(2).getString("label");
+                    image = null;
+                    try {
+                        InputStream in = new URL(urlImage).openStream();
+                        image = BitmapFactory.decodeStream(in);
+                    } catch (Exception e) {
+                        Log.d("Error", e.getMessage());
+                    }
+                    entry.setLargeImage(image);
+*/
+
                     apps.add(entry);
                 }
 
