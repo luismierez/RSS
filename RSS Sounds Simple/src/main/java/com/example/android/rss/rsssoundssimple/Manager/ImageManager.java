@@ -8,6 +8,8 @@ import android.media.Image;
 import android.os.Environment;
 import android.widget.ImageView;
 
+import com.example.android.rss.rsssoundssimple.R;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.ref.SoftReference;
@@ -52,19 +54,19 @@ public class ImageManager {
         }
     }
 
-    public void displayImage(String url, ImageView imageView, int defaultDrawableId) {
+    public void displayImage(String url, Activity activity, ImageView imageView) {
 
         if (imageMap.containsKey(url)) {
             imageView.setImageBitmap(imageMap.get(url).get());
         } else {
-            queueImage(url, imageView, defaultDrawableId);
-            imageView.setImageResource(defaultDrawableId);
+            queueImage(url, imageView);
+            imageView.setImageResource(R.drawable.ic_launcher);
         }
     }
 
-    private void queueImage(String url, ImageView imageView, int defaultDrawableId) {
+    private void queueImage(String url, ImageView imageView) {
         imageQueue.Clean(imageView);
-        ImageRef p = new ImageRef(url, imageView, defaultDrawableId);
+        ImageRef p = new ImageRef(url, imageView);
 
         synchronized (imageQueue.imageRefs) {
             imageQueue.imageRefs.push(p);
@@ -138,12 +140,11 @@ public class ImageManager {
     private class ImageRef {
         public String url;
         public ImageView imageView;
-        public int defDrawableId;
 
-        public ImageRef(String u, ImageView i, int defaultDrawableId) {
+        public ImageRef(String u, ImageView i) {
             url = u;
             imageView = i;
-            defDrawableId = defaultDrawableId;
+
         }
     }
 
@@ -189,7 +190,7 @@ public class ImageManager {
                         // Make sure we have the right view - thread safety defender
                         if(tag != null && ((String)tag).equals(imageToLoad.url)) {
                             BitmapDisplayer bmpDisplayer =
-                                    new BitmapDisplayer(bmp, imageToLoad.imageView, imageToLoad.defDrawableId);
+                                    new BitmapDisplayer(bmp, imageToLoad.imageView);
 
                             Activity a =
                                     (Activity)imageToLoad.imageView.getContext();
@@ -209,19 +210,18 @@ public class ImageManager {
     private class BitmapDisplayer implements Runnable {
         Bitmap bitmap;
         ImageView imageView;
-        int defDrawableId;
 
-        public BitmapDisplayer(Bitmap b, ImageView i, int defaultDrawableId) {
+        public BitmapDisplayer(Bitmap b, ImageView i) {
             bitmap=b;
             imageView=i;
-            defDrawableId = defaultDrawableId;
+
         }
 
         public void run() {
             if(bitmap != null)
                 imageView.setImageBitmap(bitmap);
             else
-                imageView.setImageResource(defDrawableId);
+                imageView.setImageResource(R.drawable.ic_launcher);
         }
     }
 }

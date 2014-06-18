@@ -32,6 +32,7 @@ public class EntryContent implements Parcelable {
     private Bitmap image_small;
     private Bitmap image_medium;
     private Bitmap image_large;
+    private String image_url;
 
 
     public EntryContent(JSONObject object) {
@@ -39,6 +40,7 @@ public class EntryContent implements Parcelable {
             name = object.getJSONObject("im:name").getString("label");
 
             JSONArray _image = object.getJSONArray("im:image");
+            image_url = _image.getJSONObject(0).getString("label");
 
             summary = object.getJSONObject("summary").getString("label");
 
@@ -73,6 +75,10 @@ public class EntryContent implements Parcelable {
 
     public void setLargeImage(Bitmap in) {
         image_large = in;
+    }
+
+    public String getImageUrl() {
+        return image_url;
     }
 
     public String getName() {

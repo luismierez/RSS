@@ -1,5 +1,6 @@
 package com.example.android.rss.rsssoundssimple.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.rss.rsssoundssimple.Content.EntryContent;
+import com.example.android.rss.rsssoundssimple.Manager.ImageManager;
 import com.example.android.rss.rsssoundssimple.R;
 
 import java.io.IOException;
@@ -26,31 +28,46 @@ import java.util.List;
 public class EntryAdapter extends ArrayAdapter<EntryContent> {
     private final Context context;
     private final List<EntryContent> values;
+    public ImageManager imageManager;
+
     public EntryAdapter(Context context, List<EntryContent> values) {
         super(context, R.layout.list_entry_layout, values);
         this.context = context;
         this.values = values;
     }
 
-    private class ViewHolder() {
-
+    private static class ViewHolder {
+        TextView name;
+        TextView price;
+        ImageView image;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View rowView = inflater.inflate(R.layout.list_entry_layout, parent, false);
-        TextView name = (TextView) rowView.findViewById(R.id.appName);
-        TextView price = (TextView) rowView.findViewById(R.id.appPrice);
-        ImageView image = (ImageView) rowView.findViewById(R.id.appImage);
+        View v = convertView;
+        ViewHolder holder;
+        if (v == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            v = inflater.inflate(R.layout.list_entry_layout, null);
+            holder = new ViewHolder();
+            holder.name = (TextView) v.findViewById(R.id.appName);
+            holder.price = (TextView) v.findViewById(R.id.appPrice);
+            holder.image = (ImageView) v.findViewById(R.id.appImage);
+            v.setTag(holder);
 
-        name.setText(values.get(position).getName()); // Set the name of the app
-        Log.d("APP Price", String.valueOf(values.get(position).getPrice("amount")==null));
-        price.setText(values.get(position).getPrice("amount") + " " + values.get(position).getPrice("currency")); // Set the price of the app
+        } else {
+            holder = (ViewHolder)v.getTag();
+        }
 
-        image.setImageBitmap(values.get(position).getImage(53)); // Set the image of the app
+        EntryContent entry = values.get(position);
+        if (entry != null) {
+            holder.name.setText(entry.getName());
+            holder.price.setText(entry.getPrice("amount"));
+            holder.image.setTag(entry.getImage(53));
+            imageManager.displayImage(entry.getImageUrl(), (Activity) context, holder.image);
+        }
 
-        return rowView;
+        return v;
     }
 }
