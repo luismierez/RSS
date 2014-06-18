@@ -93,7 +93,9 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
                     // Image is a special case
                     JSONArray images = entries.getJSONObject(i).getJSONArray("im:image");
                     String urlImage = images.getJSONObject(0).getString("label");
+
                     Bitmap image = null;
+                    /*
                     try {
                         InputStream in = new URL(urlImage).openStream();
                         image = BitmapFactory.decodeStream(in);
@@ -101,7 +103,7 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
                         Log.d("Error", e.getMessage());
                     }
                     entry.setSmallImage(image);
-/*
+
                     urlImage = images.getJSONObject(1).getString("label");
                     image = null;
                     try {
@@ -114,6 +116,7 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
 
                     urlImage = images.getJSONObject(2).getString("label");
                     image = null;
+                    */
                     try {
                         InputStream in = new URL(urlImage).openStream();
                         image = BitmapFactory.decodeStream(in);
@@ -121,7 +124,7 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
                         Log.d("Error", e.getMessage());
                     }
                     entry.setLargeImage(image);
-*/
+
 
                     apps.add(entry);
                 }

@@ -28,11 +28,12 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/logo"
                 android:background="#555555"
-                android:text="TETETE"/>
+                android:text="Details App Name"/>
 
             </RelativeLayout>
 
     </FrameLayout>
+
 
 
     

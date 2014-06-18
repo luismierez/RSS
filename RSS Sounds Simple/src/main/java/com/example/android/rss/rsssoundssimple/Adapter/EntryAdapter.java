@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.rss.rsssoundssimple.Content.EntryContent;
-import com.example.android.rss.rsssoundssimple.Manager.ImageManager;
 import com.example.android.rss.rsssoundssimple.R;
 
 import java.io.IOException;
@@ -28,7 +27,6 @@ import java.util.List;
 public class EntryAdapter extends ArrayAdapter<EntryContent> {
     private final Context context;
     private final List<EntryContent> values;
-    public ImageManager imageManager;
 
     public EntryAdapter(Context context, List<EntryContent> values) {
         super(context, R.layout.list_entry_layout, values);
@@ -64,8 +62,8 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
         if (entry != null) {
             holder.name.setText(entry.getName());
             holder.price.setText(entry.getPrice("amount"));
-            holder.image.setTag(entry.getImage(53));
-            imageManager.displayImage(entry.getImageUrl(), (Activity) context, holder.image);
+            holder.image.setImageBitmap(entry.getImage(100));
+
         }
 
         return v;
