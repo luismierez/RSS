@@ -9,7 +9,6 @@ import org.json.JSONObject;
  * Created by Luis Mierez on 6/11/2014.
  */
 public class AuthorContent {
-    //private JSONObject author;
     private JSONObject name;
     private JSONObject uri;
 

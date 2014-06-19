@@ -39,6 +39,7 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
         TextView name;
         TextView price;
         ImageView image;
+        TextView description;
     }
 
     @Override
@@ -53,6 +54,8 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
             holder.name = (TextView) v.findViewById(R.id.appName);
             holder.price = (TextView) v.findViewById(R.id.appPrice);
             holder.image = (ImageView) v.findViewById(R.id.appImage);
+            holder.description = (TextView) v.findViewById(R.id.artistName);
+
             v.setTag(holder);
 
         } else {
@@ -61,8 +64,12 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
 
         EntryContent entry = values.get(position);
         if (entry != null) {
-            holder.name.setText(entry.getName());
-            holder.price.setText(entry.getPrice("amount"));
+            int appPosition = position + 1;
+            holder.name.setText(appPosition + ". " + entry.getName());
+
+            holder.price.setText(entry.getPrice("label"));
+
+            holder.description.setText(entry.getArtist());
             //holder.image.setImageBitmap(entry.getImage(100));
             holder.image.setImageResource(R.drawable.ic_launcher);
             Picasso.with(context)

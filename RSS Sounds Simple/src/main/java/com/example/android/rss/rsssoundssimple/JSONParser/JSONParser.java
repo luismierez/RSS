@@ -1,6 +1,5 @@
 package com.example.android.rss.rsssoundssimple.JSONParser;
 
-import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,7 +29,7 @@ public class JSONParser {
     static JSONObject jsonObject = null;
     static String json = "";
 
-    // Cunstructor
+    // Constructor
     public JSONParser() {
 
     }
@@ -55,7 +54,6 @@ public class JSONParser {
                 HttpGet httpGet = new HttpGet(url);
 
                 HttpResponse httpResponse = httpClient.execute(httpGet);
-                Log.d("JSONParser", "Here");
                 HttpEntity httpEntity = httpResponse.getEntity();
                 is = httpEntity.getContent();
 

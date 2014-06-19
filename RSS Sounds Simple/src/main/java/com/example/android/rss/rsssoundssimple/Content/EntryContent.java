@@ -29,9 +29,6 @@ public class EntryContent implements Parcelable {
     private String artist;
     private String category;
     private String releaseDate;
-    private Bitmap image_small;
-    private Bitmap image_medium;
-    private Bitmap image_large;
     private String image_url;
 
 
@@ -56,7 +53,10 @@ public class EntryContent implements Parcelable {
             title = object.getJSONObject("title").getString("label");
             link = object.getJSONObject("link").getJSONObject("attributes").getString("href");
             //id = object.getJSONObject("id");
-            //artist = object.getJSONObject("im:artist");
+
+            JSONObject artObject = object.getJSONObject("im:artist");
+
+            artist = artObject.getString("label");
             //category = object.getJSONObject("category");
             //releaseDate = object.getJSONObject("im:releaseDate");
         } catch (JSONException e) {
@@ -65,37 +65,12 @@ public class EntryContent implements Parcelable {
         }
     }
 
-    public void setSmallImage(Bitmap in) {
-        image_small = in;
-    }
-
-    public void setMediumImage(Bitmap in) {
-        image_medium = in;
-    }
-
-    public void setLargeImage(Bitmap in) {
-        image_large = in;
-    }
-
     public String getImageUrl() {
         return image_url;
     }
 
     public String getName() {
         return name;
-    }
-
-    public Bitmap getImage(int height) {
-        switch(height) {
-            case 53:
-                return image_small;
-            case 75:
-                return image_medium;
-            case 100:
-                return image_large;
-            default:
-                return null;
-        }
     }
 
     public String getSummary() {
@@ -134,11 +109,17 @@ public class EntryContent implements Parcelable {
         return link;
     }
 
+    public String getArtist() {
+        return artist;
+    }
+
+    //TODO: getId, getArtist, getCategory, and getReleaseDate
+
     public EntryContent(Parcel in) {
         readFromParcel(in);
     }
 
-    //TODO: getId, getArtist, getCategory, and getReleaseDate
+
 
     @Override
     public int describeContents() {
@@ -149,9 +130,6 @@ public class EntryContent implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         //parcel.writeList(image);
-        image_small.writeToParcel(parcel, i);
-        image_medium.writeToParcel(parcel, i);
-        image_large.writeToParcel(parcel, i);
         parcel.writeString(summary);
         parcel.writeString(price_label);
         parcel.writeString(price_amount);
@@ -166,11 +144,6 @@ public class EntryContent implements Parcelable {
     public void readFromParcel(Parcel source) {
         //Log.d("EntryContent", "0");
         name = source.readString();
-        //Log.d("EntryContent", "1");
-        //source.readStringList(image)
-        image_small = Bitmap.CREATOR.createFromParcel(source);
-        image_medium = Bitmap.CREATOR.createFromParcel(source);
-        image_large = Bitmap.CREATOR.createFromParcel(source);
 
         //Log.d("EntryContent", "2");
         summary = source.readString();
