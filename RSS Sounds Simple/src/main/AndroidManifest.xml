@@ -3,6 +3,7 @@
     package="com.example.android.rss.rsssoundssimple" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -21,8 +22,7 @@
 
         <activity
             android:name=".DetailActivity"
-            android:label="Details"
-            android:parentActivityName="com.example.android.rss.rsssoundssimple.MainActivity">
+            android:label="Details">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.rss.rsssoundssimple.MainActivity"/>

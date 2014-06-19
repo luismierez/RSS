@@ -116,7 +116,7 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
 
                     urlImage = images.getJSONObject(2).getString("label");
                     image = null;
-                    */
+
                     try {
                         InputStream in = new URL(urlImage).openStream();
                         image = BitmapFactory.decodeStream(in);
@@ -124,6 +124,7 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
                         Log.d("Error", e.getMessage());
                     }
                     entry.setLargeImage(image);
+                    */
 
 
                     apps.add(entry);

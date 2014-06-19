@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.android.rss.rsssoundssimple.Content.EntryContent;
 import com.example.android.rss.rsssoundssimple.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,7 +63,11 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
         if (entry != null) {
             holder.name.setText(entry.getName());
             holder.price.setText(entry.getPrice("amount"));
-            holder.image.setImageBitmap(entry.getImage(100));
+            //holder.image.setImageBitmap(entry.getImage(100));
+            holder.image.setImageResource(R.drawable.ic_launcher);
+            Picasso.with(context)
+                    .load(entry.getImageUrl())
+                    .into(holder.image);
 
         }
 

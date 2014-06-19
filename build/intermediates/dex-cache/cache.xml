@@ -8,6 +8,12 @@
         revision="19.1.0"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
     <item
+        dex="/Users/luismierez/Documents/AndroidStudioProjects/RSS/RSS Sounds Simple/build/intermediates/pre-dexed/debug/picasso-2.3.2-82826e95ca6e1ac3770f3131616052d07772825f.jar"
+        jar="/Users/luismierez/Documents/AndroidStudioProjects/RSS/RSS Sounds Simple/libs/picasso-2.3.2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27"/>
+    <item
         dex="/Users/luismierez/Documents/AndroidStudioProjects/RSS/RSS Sounds Simple/build/intermediates/pre-dexed/debug/classes-126179492b73fed6db963dff95d8e18d6e59e80b.jar"
         jar="/Users/luismierez/Documents/AndroidStudioProjects/RSS/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
         jumboMode="false"
