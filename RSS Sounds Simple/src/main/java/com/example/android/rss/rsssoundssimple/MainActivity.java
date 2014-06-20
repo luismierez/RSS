@@ -5,19 +5,23 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.rss.rsssoundssimple.Content.AuthorContent;
 import com.example.android.rss.rsssoundssimple.Content.EntryContent;
 import com.example.android.rss.rsssoundssimple.JSONParser.JSONParser;
+import com.example.android.rss.rsssoundssimple.Listeners.DrawerItemClickListener;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -34,6 +38,9 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
     AppListFragment listFragment;
     AppDetailFragment detailFragment;
     FragmentManager manager;
+    DrawerLayout drawerLayout;
+    ListView drawerList;
+    String[] testArray = {"1", "2", "3", "4"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,15 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
         manager = getFragmentManager();
         listFragment = (AppListFragment) manager.findFragmentById(R.id.listFragment);
         listFragment.setCommunicator(this);
+
+        //drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        //drawerList = (ListView) findViewById(R.id.drawerList);
+        //drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_layout, testArray));
+
+        //drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+
+
 
     }
 

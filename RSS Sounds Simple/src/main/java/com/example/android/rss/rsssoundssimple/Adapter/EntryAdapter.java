@@ -1,10 +1,7 @@
 package com.example.android.rss.rsssoundssimple.Adapter;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +13,6 @@ import com.example.android.rss.rsssoundssimple.Content.EntryContent;
 import com.example.android.rss.rsssoundssimple.R;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -70,7 +63,7 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
             holder.price.setText(entry.getPrice("label"));
 
             holder.description.setText(entry.getArtist());
-            //holder.image.setImageBitmap(entry.getImage(100));
+
             holder.image.setImageResource(R.drawable.ic_launcher);
             Picasso.with(context)
                     .load(entry.getImageUrl())

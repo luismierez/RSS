@@ -1,63 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="12dp"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
-    android:background="#a7c673"
-    android:clickable="true">
-    <ImageView
-        android:id="@+id/appImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left|center_vertical"
-        android:src="@drawable/ic_launcher"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:id="@+id/appPrice"
-        android:singleLine="true"
-        android:ellipsize="marquee"
-        android:text="App Price"
-        android:layout_gravity="right"
-        android:layout_marginTop="30dp"
-        />
-
-    <TextView
-
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/appName"
-        android:text="App Name"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:layout_gravity="left"
-        android:layout_marginLeft="50dp"
-        />
-
-    <TextView
-        android:layout_width="250dp"
-        android:layout_height="30dp"
-        android:id="@+id/appDescription"
-        android:ellipsize="marquee"
-        android:text="App Description"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="15dp"/>
-
-
-
-</FrameLayout> -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="80dp"
     android:layout_width="fill_parent"
-    android:background="#a7c673"
+    android:background="#ffffff"
     >
 
     <ImageView
@@ -101,15 +47,5 @@
         android:layout_toRightOf="@id/appImage"
         android:paddingLeft="10dp"
         android:textSize="10sp"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_rating_not_important"
-
-        android:layout_alignParentRight="true"
-        />
-
-
 
 </RelativeLayout>
