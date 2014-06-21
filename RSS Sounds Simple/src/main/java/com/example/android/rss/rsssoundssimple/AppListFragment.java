@@ -1,5 +1,6 @@
 package com.example.android.rss.rsssoundssimple;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -34,9 +35,19 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
     Communicator communicator;
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            communicator = (Communicator) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d("AppListFragment", "onCreate");
         new GetRss().execute();
     }
 
@@ -55,7 +66,14 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        communicator.respond(apps.get(i));
+        Log.d("onItemClick", apps.get(i).getName());
+        if (communicator==null) {
+            Log.d("onItemClick", "communicator is null");
+        }
+        if (getActivity()!=null) {
+            Log.d("onItemClick", "communicator is not null");
+            communicator.respond(apps.get(i));
+        }
     }
 
     public interface Communicator {
@@ -94,15 +112,19 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
 
         @Override
         protected void onPostExecute(String url) {
+            if (getActivity()==null) {
+                Log.d("getActivity", "null");
+            }
+            if (getActivity()!=null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
 
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                    EntryAdapter adapter = new EntryAdapter(getActivity(), apps);
-                    list.setAdapter(adapter);
-                }
-            });
+                        EntryAdapter adapter = new EntryAdapter(getActivity(), apps);
+                        list.setAdapter(adapter);
+                    }
+                });
+            }
         }
     }
 }

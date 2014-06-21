@@ -2,6 +2,7 @@ package com.example.android.rss.rsssoundssimple.Adapter;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,6 @@ public class EntryAdapter extends ArrayAdapter<EntryContent> {
             Picasso.with(context)
                     .load(entry.getImageUrl())
                     .into(holder.image);
-
         }
 
         return v;

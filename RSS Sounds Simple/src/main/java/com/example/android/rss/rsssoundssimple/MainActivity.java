@@ -1,10 +1,9 @@
 package com.example.android.rss.rsssoundssimple;
 
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.app.Fragment;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,26 +11,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.example.android.rss.rsssoundssimple.Content.AuthorContent;
 import com.example.android.rss.rsssoundssimple.Content.EntryContent;
-import com.example.android.rss.rsssoundssimple.JSONParser.JSONParser;
-import com.example.android.rss.rsssoundssimple.Listeners.DrawerItemClickListener;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 
 public class MainActivity extends ActionBarActivity implements AppListFragment.Communicator {
 
@@ -40,24 +24,55 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
     FragmentManager manager;
     DrawerLayout drawerLayout;
     ListView drawerList;
-    String[] testArray = {"1", "2", "3", "4"};
+    String[] testArray = {"All", "Favorites"};
+    CharSequence mTitle;
+    CharSequence mDrawerTitle;
+
+    ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mTitle = mDrawerTitle = getTitle();
         manager = getFragmentManager();
-        listFragment = (AppListFragment) manager.findFragmentById(R.id.listFragment);
-        listFragment.setCommunicator(this);
+        listFragment = new AppListFragment();
 
-        //drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        //drawerList = (ListView) findViewById(R.id.drawerList);
-        //drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_layout, testArray));
-
-        //drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        //listFragment.setCommunicator(this);
+        manager.beginTransaction().replace(R.id.listFragment_container, listFragment)
+                .addToBackStack(null).commit();
 
 
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList = (ListView) findViewById(R.id.drawer_list);
+        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_layout, testArray));
+
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.drawable.ic_navigation_drawer,
+                R.string.drawer_open,
+                R.string.drawer_close) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(mTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+        };
+
+        drawerLayout.setDrawerListener(drawerToggle);
+        if (savedInstanceState == null) {
+            selectItem(0);
+        }
 
     }
 
@@ -74,6 +89,9 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -83,7 +101,8 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
 
     @Override
     public void respond(EntryContent entry) {
-        detailFragment = (AppDetailFragment) manager.findFragmentById(R.id.detailFragment);
+        Log.d("respond", "here");
+        //detailFragment = (AppDetailFragment) manager.findFragmentById(R.id.detailFragment);
 
         if (detailFragment!=null && detailFragment.isVisible()) {
             // Landscape orientation
@@ -92,10 +111,48 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
             // Portrait orientation
             Intent intent = new Intent(this, DetailActivity.class);
             intent.putExtra("entry", entry);
-            startActivity(intent);
             Log.d("MainActivity", "here");
+            startActivity(intent);
+
         }
     }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            selectItem(i);
+        }
+    }
+
+        /** Swaps fragments in the main view **/
+        private void selectItem(int position) {
+            Fragment fragment = new AppListFragment();
+            Bundle args = new Bundle();
+
+            args.putInt("key", position);
+            fragment.setArguments(args);
+
+            manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.listFragment_container, fragment).commit();
+
+            drawerList.setItemChecked(position, true);
+            setTitle(testArray[position]);
+            drawerLayout.closeDrawer(drawerList);
+
+        }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(title);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
 }
-
-

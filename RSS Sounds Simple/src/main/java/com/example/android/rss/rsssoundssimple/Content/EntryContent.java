@@ -130,6 +130,7 @@ public class EntryContent implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         //parcel.writeList(image);
+        parcel.writeString(image_url);
         parcel.writeString(summary);
         parcel.writeString(price_label);
         parcel.writeString(price_amount);
@@ -144,7 +145,7 @@ public class EntryContent implements Parcelable {
     public void readFromParcel(Parcel source) {
         //Log.d("EntryContent", "0");
         name = source.readString();
-
+        image_url = source.readString();
         //Log.d("EntryContent", "2");
         summary = source.readString();
         //Log.d("EntryContent", "3");
