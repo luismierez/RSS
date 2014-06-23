@@ -1,7 +1,11 @@
 package com.example.android.rss.rsssoundssimple;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +23,26 @@ public class AppDetailFragment extends Fragment {
     TextView text;
     ImageView image;
     TextView description;
+    SharedPreferences sharedPreferences;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.app_detail_fragment_layout, container, false);
+
         text = (TextView) view.findViewById(R.id.detailName);
         image = (ImageView) view.findViewById(R.id.logo);
         description = (TextView) view.findViewById(R.id.description);
 
+
         return view;
     }
+
 
     public void changeData(EntryContent entry) {
         text.setText(entry.getName());

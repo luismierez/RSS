@@ -7,7 +7,7 @@
     android:padding="6dp"
     android:background="#aaaaaa">
 
-    <!--android:layout_height="?android:attr/listPreferredItemHeight" -->
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

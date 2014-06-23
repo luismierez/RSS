@@ -39,8 +39,7 @@ public class DetailActivity extends ActionBarActivity {
 
         sharedPreferences = getSharedPreferences("favorites", Context.MODE_PRIVATE);
         shareEdit = sharedPreferences.edit();
-        if (!sharedPreferences.contains(entry.getName()))
-            shareEdit.putBoolean(entry.getName(), false).commit();
+
 
 
     }
@@ -78,7 +77,8 @@ public class DetailActivity extends ActionBarActivity {
                 invalidateOptionsMenu();
                 return true;
             case R.id.favorites:
-                shareEdit.putBoolean(entry.getName(), false).commit();
+                //shareEdit.putBoolean(entry.getName(), false).commit();
+                shareEdit.remove(entry.getName()).commit();
                 invalidateOptionsMenu();
                 return true;
             default:

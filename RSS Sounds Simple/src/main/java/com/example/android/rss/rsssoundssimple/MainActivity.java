@@ -13,13 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.example.android.rss.rsssoundssimple.Content.EntryContent;
 
 public class MainActivity extends ActionBarActivity implements AppListFragment.Communicator {
 
-    AppListFragment listFragment;
     AppDetailFragment detailFragment;
     FragmentManager manager;
     DrawerLayout drawerLayout;
@@ -36,12 +36,6 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
         setContentView(R.layout.activity_main);
         mTitle = mDrawerTitle = getTitle();
         manager = getFragmentManager();
-        listFragment = new AppListFragment();
-
-        //listFragment.setCommunicator(this);
-        manager.beginTransaction().replace(R.id.listFragment_container, listFragment)
-                .addToBackStack(null).commit();
-
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -66,12 +60,25 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
                 getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-
         };
 
+
         drawerLayout.setDrawerListener(drawerToggle);
+/*
+        if (findViewById(R.id.detailFragment_container)!= null) {
+            // Activity is in landscape if detailFragment container is not null in this activity
+            if (savedInstanceState!=null) {
+                return;
+            }
+            AppDetailFragment detailFragment = new AppDetailFragment();
+
+            getFragmentManager().beginTransaction().add(R.id.detailFragment_container, detailFragment).commit();
+
+        }
+        */
         if (savedInstanceState == null) {
             selectItem(0);
+
         }
 
     }
@@ -101,24 +108,27 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
 
     @Override
     public void respond(EntryContent entry) {
-        Log.d("respond", "here");
-        //detailFragment = (AppDetailFragment) manager.findFragmentById(R.id.detailFragment);
-
+        detailFragment = (AppDetailFragment) manager.findFragmentById(R.id.detailFragment);
+        //FrameLayout detailFrame = (FrameLayout) findViewById(R.id.detailFragment_container);
+        //if(detailFrame==null) Log.d("respond", "detailFrame is null");
         if (detailFragment!=null && detailFragment.isVisible()) {
+            //AppDetailFragment detailFragment = new AppDetailFragment();
+
             // Landscape orientation
+            //manager.beginTransaction().replace(R.id.detailFragment_container, detailFragment).commit();
+            Log.d("respond", "landscape");
             detailFragment.changeData(entry);
+
         } else {
             // Portrait orientation
+            Log.d("respond", "portrait");
             Intent intent = new Intent(this, DetailActivity.class);
             intent.putExtra("entry", entry);
-            Log.d("MainActivity", "here");
             startActivity(intent);
-
         }
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
-
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -127,21 +137,20 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
     }
 
         /** Swaps fragments in the main view **/
-        private void selectItem(int position) {
-            Fragment fragment = new AppListFragment();
-            Bundle args = new Bundle();
+    private void selectItem(int position) {
+        Fragment listFragment = new AppListFragment();
+        Bundle args = new Bundle();
 
-            args.putInt("key", position);
-            fragment.setArguments(args);
+        args.putInt("key", position);
+        listFragment.setArguments(args);
 
-            manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.listFragment_container, fragment).commit();
+        manager.beginTransaction().replace(R.id.listFragment_container, listFragment).commit();
 
-            drawerList.setItemChecked(position, true);
-            setTitle(testArray[position]);
-            drawerLayout.closeDrawer(drawerList);
+        drawerList.setItemChecked(position, true);
+        setTitle(testArray[position]);
+        drawerLayout.closeDrawer(drawerList);
 
-        }
+    }
 
     @Override
     public void setTitle(CharSequence title) {

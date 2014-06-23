@@ -29,13 +29,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.android.rss.rsssoundssimple.AppListFragment"
-        android:id="@+id/listFragment"/>
-    -->
+
 
     <FrameLayout
         android:layout_width="match_parent"

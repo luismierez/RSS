@@ -25,7 +25,7 @@ public class EntryContent implements Parcelable {
     private String rights;
     private String title;
     private String link;
-    private String id;
+    private int id;
     private String artist;
     private String category;
     private String releaseDate;
@@ -59,6 +59,8 @@ public class EntryContent implements Parcelable {
             artist = artObject.getString("label");
             //category = object.getJSONObject("category");
             //releaseDate = object.getJSONObject("im:releaseDate");
+
+            id = object.getJSONObject("attributes").getInt("im:id");
         } catch (JSONException e) {
             Log.d("EntryContent", "Error in constructor");
             e.printStackTrace();
@@ -113,6 +115,10 @@ public class EntryContent implements Parcelable {
         return artist;
     }
 
+    public int getID() {
+        return id;
+    }
+
     //TODO: getId, getArtist, getCategory, and getReleaseDate
 
     public EntryContent(Parcel in) {
@@ -140,6 +146,7 @@ public class EntryContent implements Parcelable {
         parcel.writeString(rights);
         parcel.writeString(title);
         parcel.writeString(link);
+        parcel.writeInt(id);
     }
 
     public void readFromParcel(Parcel source) {
@@ -165,6 +172,7 @@ public class EntryContent implements Parcelable {
         //Log.d("EntryContent", "10");
         link = source.readString();
         //Log.d("EntryContent", "11");
+        id = source.readInt();
     }
 
     public static final Parcelable.Creator<EntryContent> CREATOR = new Parcelable.Creator<EntryContent>() {
