@@ -62,20 +62,8 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
             }
         };
 
-
         drawerLayout.setDrawerListener(drawerToggle);
-/*
-        if (findViewById(R.id.detailFragment_container)!= null) {
-            // Activity is in landscape if detailFragment container is not null in this activity
-            if (savedInstanceState!=null) {
-                return;
-            }
-            AppDetailFragment detailFragment = new AppDetailFragment();
 
-            getFragmentManager().beginTransaction().add(R.id.detailFragment_container, detailFragment).commit();
-
-        }
-        */
         if (savedInstanceState == null) {
             selectItem(0);
 
@@ -108,24 +96,11 @@ public class MainActivity extends ActionBarActivity implements AppListFragment.C
 
     @Override
     public void respond(EntryContent entry) {
-        detailFragment = (AppDetailFragment) manager.findFragmentById(R.id.detailFragment);
-        //FrameLayout detailFrame = (FrameLayout) findViewById(R.id.detailFragment_container);
-        //if(detailFrame==null) Log.d("respond", "detailFrame is null");
-        if (detailFragment!=null && detailFragment.isVisible()) {
-            //AppDetailFragment detailFragment = new AppDetailFragment();
 
-            // Landscape orientation
-            //manager.beginTransaction().replace(R.id.detailFragment_container, detailFragment).commit();
-            Log.d("respond", "landscape");
-            detailFragment.changeData(entry);
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("entry", entry);
+        startActivity(intent);
 
-        } else {
-            // Portrait orientation
-            Log.d("respond", "portrait");
-            Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra("entry", entry);
-            startActivity(intent);
-        }
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

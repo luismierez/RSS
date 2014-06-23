@@ -49,7 +49,7 @@
         android:layout_below="@id/appName"
 
         android:paddingLeft="10dp"
-        android:textSize="10sp"/>
+        android:textSize="12sp"/>
 
 
 </RelativeLayout>

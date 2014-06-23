@@ -24,7 +24,6 @@
         android:singleLine="true"
         android:ellipsize="marquee"
         android:text="App Price"
-
         android:layout_below="@id/appImage"
 
         />
@@ -49,7 +48,7 @@
         android:layout_below="@id/appName"
 
         android:paddingLeft="10dp"
-        android:textSize="10sp"/>
+        android:textSize="12sp"/>
 
 
 </RelativeLayout>

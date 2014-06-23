@@ -66,7 +66,14 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
         list = (AbsListView) view.findViewById(R.id.appList);
         //list = (ListView) view.findViewById(R.id.appList);
         TextView emptyText = (TextView) view.findViewById(android.R.id.empty);
-        list.setEmptyView(emptyText);
+        if (listId == 0 ) {
+            emptyText.setText("loading apps... please wait.");
+            list.setEmptyView(emptyText);
+        } else {
+            emptyText.setText("loading favorite apps... please wait.");
+            list.setEmptyView(emptyText);
+        }
+
         list.setOnItemClickListener(this);
         return view;
     }
@@ -75,8 +82,9 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
         if (getActivity()!=null) {
-            communicator.respond(apps.get(i));
             list.setItemChecked(i, true);
+            communicator.respond(apps.get(i));
+
         }
     }
 
