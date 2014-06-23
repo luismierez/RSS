@@ -60,7 +60,7 @@ public class EntryContent implements Parcelable {
             //category = object.getJSONObject("category");
             //releaseDate = object.getJSONObject("im:releaseDate");
 
-            id = object.getJSONObject("attributes").getInt("im:id");
+            id = object.getJSONObject("id").getJSONObject("attributes").getInt("im:id");
         } catch (JSONException e) {
             Log.d("EntryContent", "Error in constructor");
             e.printStackTrace();

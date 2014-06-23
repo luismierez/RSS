@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +34,8 @@ import java.util.Map;
  */
 public class AppListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    ListView list;
+    //ListView list;
+    AbsListView list;
     JSONParser jsonParser = new JSONParser();
     List<EntryContent> apps = new ArrayList<EntryContent>();
     Communicator communicator;
@@ -61,8 +63,8 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.app_list_fragment_layout, container, false);
-
-        list = (ListView) view.findViewById(R.id.appList);
+        list = (AbsListView) view.findViewById(R.id.appList);
+        //list = (ListView) view.findViewById(R.id.appList);
         TextView emptyText = (TextView) view.findViewById(android.R.id.empty);
         list.setEmptyView(emptyText);
         list.setOnItemClickListener(this);

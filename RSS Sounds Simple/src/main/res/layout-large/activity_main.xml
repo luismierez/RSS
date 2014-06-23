@@ -17,6 +17,7 @@
             android:layout_weight="1"
 
             />
+        <!--
         <fragment
             android:layout_weight="1.5"
             android:layout_width="0dp"
@@ -24,6 +25,7 @@
             android:name="com.example.android.rss.rsssoundssimple.AppDetailFragment"
             android:id="@+id/detailFragment"
             android:layout_gravity="left|center_vertical" />
+            -->
     </LinearLayout>
 
     <ListView
