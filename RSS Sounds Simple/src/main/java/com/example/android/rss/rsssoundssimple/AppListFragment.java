@@ -6,13 +6,11 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.rss.rsssoundssimple.Adapter.EntryAdapter;
@@ -34,7 +32,6 @@ import java.util.Map;
  */
 public class AppListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    //ListView list;
     AbsListView list;
     JSONParser jsonParser = new JSONParser();
     List<EntryContent> apps = new ArrayList<EntryContent>();
@@ -64,7 +61,6 @@ public class AppListFragment extends Fragment implements AdapterView.OnItemClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.app_list_fragment_layout, container, false);
         list = (AbsListView) view.findViewById(R.id.appList);
-        //list = (ListView) view.findViewById(R.id.appList);
         TextView emptyText = (TextView) view.findViewById(android.R.id.empty);
         if (listId == 0 ) {
             emptyText.setText("loading apps... please wait.");

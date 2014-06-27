@@ -52,13 +52,10 @@ public class EntryContent implements Parcelable {
             rights = object.getJSONObject("rights").getString("label");
             title = object.getJSONObject("title").getString("label");
             link = object.getJSONObject("link").getJSONObject("attributes").getString("href");
-            //id = object.getJSONObject("id");
 
             JSONObject artObject = object.getJSONObject("im:artist");
 
             artist = artObject.getString("label");
-            //category = object.getJSONObject("category");
-            //releaseDate = object.getJSONObject("im:releaseDate");
 
             id = object.getJSONObject("id").getJSONObject("attributes").getInt("im:id");
         } catch (JSONException e) {
@@ -119,8 +116,6 @@ public class EntryContent implements Parcelable {
         return id;
     }
 
-    //TODO: getId, getArtist, getCategory, and getReleaseDate
-
     public EntryContent(Parcel in) {
         readFromParcel(in);
     }
@@ -135,7 +130,6 @@ public class EntryContent implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
-        //parcel.writeList(image);
         parcel.writeString(image_url);
         parcel.writeString(summary);
         parcel.writeString(price_label);
@@ -150,28 +144,17 @@ public class EntryContent implements Parcelable {
     }
 
     public void readFromParcel(Parcel source) {
-        //Log.d("EntryContent", "0");
         name = source.readString();
         image_url = source.readString();
-        //Log.d("EntryContent", "2");
         summary = source.readString();
-        //Log.d("EntryContent", "3");
         price_label = source.readString();
-        //Log.d("EntryContent", "4");
         price_amount = source.readString();
-        //Log.d("EntryContent", "5");
         price_currency = source.readString();
-        //Log.d("EntryContent", "6");
         content_term = source.readString();
-        //Log.d("EntryContent", "7");
         content_label = source.readString();
-        //Log.d("EntryContent", "8");
         rights = source.readString();
-       //Log.d("EntryContent", "9");
         title = source.readString();
-        //Log.d("EntryContent", "10");
         link = source.readString();
-        //Log.d("EntryContent", "11");
         id = source.readInt();
     }
 
